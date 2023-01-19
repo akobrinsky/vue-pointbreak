@@ -6,15 +6,24 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest --environment jsdom --root test/"
   },
   "dependencies": {
+    "json2mq": "^0.2.0",
     "vue": "^3.2.45"
   },
   "devDependencies": {
+    "@types/css-mediaquery": "^0.1.1",
+    "@types/jsdom": "^20.0.1",
+    "@types/json2mq": "^0.2.0",
     "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/test-utils": "^2.2.7",
+    "css-mediaquery": "^0.1.2",
+    "jsdom": "^21.0.0",
     "typescript": "^4.9.3",
     "vite": "^4.0.0",
+    "vitest": "^0.27.2",
     "vue-tsc": "^1.0.11"
   }
 }
