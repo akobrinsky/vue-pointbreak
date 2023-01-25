@@ -19,7 +19,6 @@ const pointbreak = usePointbreak();
 const breakpointTitleText = computed(() => (pointbreak.active ? 'Current Breakpoint: ' : 'Active Breakpoints: '));
 
 const breakpointsShown = computed(() => {
-  if (pointbreak.active) return [pointbreak.active];
   return Object.keys(pointbreak).filter((pb) => pointbreak[pb]);
 });
 

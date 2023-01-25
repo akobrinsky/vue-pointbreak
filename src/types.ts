@@ -7,8 +7,7 @@ export interface MediaqueryObject {
 }
 
 export interface ActiveBreakpointObject {
-  active?: string
-  [breakpoint: string]: boolean | string | undefined;
+  [breakpoint: string]: boolean | null;
 }
 
 export interface PointbreakConfig {

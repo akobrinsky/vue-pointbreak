@@ -79,7 +79,6 @@ const installFunction = (
   );
 
   const breakpointLookup: ActiveBreakpointObject = reactive(initialBreakpoints);
-  if (!inclusive) breakpointLookup.active = '';
 
   app.provide(pointbreak, breakpointLookup);
 
@@ -91,7 +90,6 @@ const installFunction = (
     Object.entries(mediaQueries).forEach(([breakpoint, mediaQuery]) => {
       const mqCallback = (event: MediaQueryListEvent | MediaQueryList) => {
         breakpointLookup[breakpoint] = event.matches;
-        if (!inclusive && event.matches) breakpointLookup.active = breakpoint;
       };
       const mq: MediaQueryList = window.matchMedia(mediaQuery);
       mq.addEventListener('change', mqCallback);
@@ -103,4 +101,5 @@ const installFunction = (
 };
 
 export default installFunction;
+
 export const usePointbreak = (): ActiveBreakpointObject => inject(pointbreak, {});
