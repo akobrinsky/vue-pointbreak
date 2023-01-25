@@ -4,7 +4,7 @@ import { mount, VueWrapper } from '@vue/test-utils';
 import {
   describe, it, vi, expect, type SpyInstance,
 } from 'vitest';
-import pointbreak, { TAILWIND_BREAKPOINTS, usePointbreak } from '../src/pointbreak';
+import pointbreak, { TAILWIND_BREAKPOINTS, usePointbreak } from '@/lib';
 
 const optionsApiComponent = defineComponent({
   inject: ['pointbreak'],

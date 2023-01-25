@@ -17,6 +17,7 @@ export const TAILWIND_BREAKPOINTS = {
   xl: 1280,
   xxl: 1536,
 };
+
 const pointbreak = 'pointbreak';
 
 // Symbol as InjectionKey does not play well with options api inject array syntax,
