@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { usePointbreak } from '../pointbreak';
+import { usePointbreak } from '@/lib'
 
 const pointbreak = usePointbreak();
 const breakpointTitleText = computed(() => (pointbreak.active ? 'Current Breakpoint: ' : 'Active Breakpoints: '));
