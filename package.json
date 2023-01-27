@@ -1,5 +1,6 @@
 {
-  "name": "@akobrinsky/vue-pointbreak",
+  "name": "vue-pointbreak",
+  "repository": "https://github.com/akobrinsky/vue-pointbreak",
   "private": false,
   "version": "1.0.0",
   "author": "Aryeh Kobrinsky",
