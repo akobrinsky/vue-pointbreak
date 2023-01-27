@@ -1,18 +1,96 @@
-# Vue 3 + TypeScript + Vite
+# pointbreak
+![pointbreak](https://shmaryeh.s3.amazonaws.com/opensource/pointbreak.png)
+A simple plugin for Vue 3 that uses [matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) for when css media queries won't give you enough. 
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Registering the plugin: 
 
-## Recommended IDE Setup
+```js
+import { createApp } from 'vue';
+import pointbreak from 'pointbreak';
+import App from './App.vue';
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+createApp(App).use(pointbreak).mount('#app');
+```
 
-## Type Support For `.vue` Imports in TS
+## Consuming pointbreak in children components
+```js
+<script setup lang="ts">
+import { usePointbreak } from 'pointbreak';
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+const pointbreak = usePointbreak();
+</script>
+```
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## inclusive = true
+By default, the plugin uses
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+```js
+config.inclusive = true
+```
+
+Inclusive means that pointbreak will keep track of all active breakpoints (matches = true on the MediaQueryListEvent). This is intended for true mobile-first approaches. 
+
+For instance, using the lookup with the following breakpoints: 
+```js
+const TAILWIND_BREAKPOINTS = {
+  xs: 0,
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  xxl: 1536,
+};
+```
+
+`pointbreak.xs` will return true for all breakpoints
+
+`pointbreak.md` will only return true for breakpoints >= 768
+
+## inclusive = false
+When you opt in for `!inclusive`, the plugin creates specific breakpoints with min and max values. 
+```json
+{
+  "xs": "(min-width: 0px) and (max-width: 639px)",
+  "sm": "(min-width: 640px) and (max-width: 767px)",
+  "md": "(min-width: 768px) and (max-width: 1023px)",
+  "lg": "(min-width: 1024px) and (max-width: 1279px)",
+  "xl": "(min-width: 1280px) and (max-width: 1535px)",
+  "xxl": "(min-width: 1536px)"
+}
+```
+
+pointbreak in `!inclusive` mode, will also have an `active` property with the current breakpoint as the value.
+
+For instance if the viewport is `769`, `pointbreak.active` will be `md`
+
+If it is `767` it will be `sm`
+
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Type-Check, Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+### Run Unit Tests with [Vitest](https://vitest.dev/)
+
+```sh
+npm run test:unit
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```
