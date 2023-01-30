@@ -2,11 +2,15 @@
 ![pointbreak](https://shmaryeh.s3.amazonaws.com/opensource/pointbreak.png)
 A simple plugin for Vue 3 that uses [matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) for when css media queries won't give you enough. Named after one of Keanu Reeves' finest films, [Pointbreak](https://www.imdb.com/title/tt0102685/) 
 
+### Install plugin
+```sh
+npm install vue-pointbreak
+```
 ## Registering the plugin: 
 
 ```js
 import { createApp } from 'vue';
-import pointbreak from 'pointbreak';
+import pointbreak from 'vue-pointbreak';
 import App from './App.vue';
 
 createApp(App).use(pointbreak).mount('#app');
@@ -16,7 +20,7 @@ createApp(App).use(pointbreak).mount('#app');
 Composition API:  
 ```js
 <script setup lang="ts">
-import { usePointbreak } from 'pointbreak';
+import { usePointbreak } from 'vue-pointbreak';
 
 const pointbreak = usePointbreak();
 </script>
