@@ -1,6 +1,6 @@
-# pointbreak
+# vue-pointbreak
 ![pointbreak](https://shmaryeh.s3.amazonaws.com/opensource/pointbreak.png)
-A simple plugin for Vue 3 that uses [matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) for when css media queries won't give you enough. 
+A simple plugin for Vue 3 that uses [matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) for when css media queries won't give you enough. Named after one of Keanu Reeves' finest films, [Pointbreak](https://www.imdb.com/title/tt0102685/) 
 
 ## Registering the plugin: 
 
@@ -13,6 +13,7 @@ createApp(App).use(pointbreak).mount('#app');
 ```
 
 ## Consuming pointbreak in children components
+Composition API:  
 ```js
 <script setup lang="ts">
 import { usePointbreak } from 'pointbreak';
@@ -21,13 +22,35 @@ const pointbreak = usePointbreak();
 </script>
 ```
 
-## inclusive = true
+Options API: 
+```js
+inject: ['pointbreak']
+```
+## Config
+```ts
+app.use(pointbreak, config: {
+  inclusive: Boolean,
+  breakpoints: BreakpointObject
+})
+```
 By default, the plugin uses
 
 ```js
-config.inclusive = true
+// Default config
+const config = {
+  inclusive: true,
+  breakpoints: TAILWIND_BREAKPOINTS
+}
+// const TAILWIND_BREAKPOINTS = {
+//   xs: 0,
+//   sm: 640,
+//   md: 768,
+//   lg: 1024,
+//   xl: 1280,
+//   xxl: 1536,
+// };
 ```
-
+### inclusive 
 Inclusive means that pointbreak will keep track of all active breakpoints (matches = true on the MediaQueryListEvent). This is intended for true mobile-first approaches. 
 
 For instance, using the lookup with the following breakpoints: 
@@ -46,7 +69,7 @@ const TAILWIND_BREAKPOINTS = {
 
 `pointbreak.md` will only return true for breakpoints >= 768
 
-## inclusive = false
+### inclusive = false
 When you opt in for `!inclusive`, the plugin creates specific breakpoints with min and max values. 
 ```json
 {
@@ -59,32 +82,16 @@ When you opt in for `!inclusive`, the plugin creates specific breakpoints with m
 }
 ```
 
-pointbreak in `!inclusive` mode, will also have an `active` property with the current breakpoint as the value.
+pointbreak in `!inclusive` mode, will create a lookup with the current breakpoint as `true`, the rest of the breakpoints will be `false`
 
-For instance if the viewport is `769`, `pointbreak.active` will be `md`
-
-If it is `767` it will be `sm`
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Run example app
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test
+For instance if the viewport is `769`, `pointbreak.md` will be `true`, and at `767` it will be `sm`
+```js
+pointbreak = {
+  xs: false,
+  sm: false,
+  md: true,
+  lg: false,
+  xl: false,
+  xxl: false
+}
 ```
