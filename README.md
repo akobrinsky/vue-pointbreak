@@ -33,7 +33,7 @@ inject: ['pointbreak']
 ## Config
 ```ts
 app.use(pointbreak, config: {
-  inclusive: Boolean,
+  inclusive: boolean,
   breakpoints: BreakpointObject
 })
 ```
